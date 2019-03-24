@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerScriptable : MonoBehaviour
+[CreateAssetMenu(fileName = "Player Data" , menuName = "ScriptableObject/Player Data")]
+public class PlayerScriptable : ScriptableObject
 {
-    private void Start()
-    {
-
-    }
+    public int m_iMaxhp;
+    public float m_fMaxTime;
+    public float m_fUpStrSpeed;
 }
