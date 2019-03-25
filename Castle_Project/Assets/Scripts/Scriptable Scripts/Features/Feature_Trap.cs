@@ -19,7 +19,7 @@ public class Feature_Trap : FeatureManager
         GameSystem.Instance.Fn_GetSlerpMove(this, prefab, m_fSpeed);            //呼叫移動方法。(從初始位置 移動至 預備射擊位置)
     }
     public override void Fn_GetThrow()
-    {
+    { 
         GameData.ThrowData tmpData = new GameData.ThrowData();
         Rigidbody rigidbody = prefab.GetComponent<Rigidbody>();
 
