@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "stone Feature", menuName = "ScriptableObject/Features stone")]
-public class Feature_Stone : FeatureManager
+[CreateAssetMenu(fileName = "trap Feature", menuName = "ScriptableObject/Features trap")]
+public class Feature_Trap : FeatureManager
 {
-    public GameObject m_ObjStonePrefab;
+    public GameObject m_ObjBloodPrefab;
     public float m_fSpeed;
 
     private GameObject prefab;
     public override void Fn_InitObject()
     {
-        prefab = Instantiate(m_ObjStonePrefab) as GameObject;
+        prefab = Instantiate(m_ObjBloodPrefab) as GameObject;
         prefab.transform.position = v3_PrefabInitPosition;              //設定物件的初始座標位置
         ItemController itemScript = prefab.GetComponent<ItemController>();
         itemScript.feature = this;
 
-        GameSystem.Instance.Fn_GetSlerpMove(this , prefab, m_fSpeed);       //呼叫移動方法。(從初始位置 移動至 預備射擊位置)
+        GameSystem.Instance.Fn_GetSlerpMove(this, prefab, m_fSpeed);            //呼叫移動方法。(從初始位置 移動至 預備射擊位置)
     }
     public override void Fn_GetThrow()
     {
@@ -45,7 +45,7 @@ public class Feature_Stone : FeatureManager
     }
     public override void Fn_ExecuteFeature()
     {
-        Debug.Log("我扔石頭囉 !!! ");
+        Debug.Log("放陷阱囉 !!! ");
     }
 }
 

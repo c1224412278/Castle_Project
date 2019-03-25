@@ -20,9 +20,7 @@ public class GameSystem : MonoBehaviour
     }
     public void Fn_GetSlerpMove(FeatureManager featureController , GameObject m_object , float speed)
     {
-        if (tmpFeature == null)
-            tmpFeature = featureController;
-
+        tmpFeature = featureController;
         Coroutine c = StartCoroutine(Fn_ExecuteSlerpMove(m_object , speed));
     }
     public void Fn_InputReadyShoot()            //點擊準備射擊
@@ -33,7 +31,7 @@ public class GameSystem : MonoBehaviour
             UIController.Instance.Fn_SetFade(UIController.Instance.Group_InputTime, 1f, 0.25f);
 
             UnityEngine.UI.Image inputingImg = UIController.Instance.Group_InputTime.transform.Find("value").GetComponent<UnityEngine.UI.Image>();
-            //UIController.Instance.Fn_UpdateAmount(inputingImg , 1f);  //整理 code 、 集器的分隔紅線 position
+            UIController.Instance.Fn_UpdateAmount(inputingImg , PlayerController.thePlayerData.m_fUpStrSpeed);
 
             PlayerController.thePlayerData.Fn_SetValueTween(true);
             PlayerController.del_Execute -= Fn_InputReadyShoot;
@@ -44,8 +42,10 @@ public class GameSystem : MonoBehaviour
     {
         if (Input.GetKeyUp(keyCode_shoot))
         {
-            if(tmpFeature != null)
-                tmpFeature.Fn_ExecuteFeature();
+            if (tmpFeature != null)
+            {
+                tmpFeature.Fn_GetThrow();               //獲得 - 物體拋擲方法
+            }
 
             UIController.Instance.Fn_SetFade(UIController.Instance.Group_InputTime, 0f, 0.25f);
 
@@ -77,8 +77,8 @@ public class GameSystem : MonoBehaviour
     {
         float displacementY = target.y - rigidbody.position.y;
         Vector3 displacementXZ = new Vector3(target.x - rigidbody.position.x , 0 , target.z - rigidbody.position.z);
-        float time = Mathf.Sqrt(-2 * throwData.h / throwData.gravity) + Mathf.Sqrt(2 * (displacementY - throwData.h) / throwData.gravity);
-        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * throwData.gravity * throwData.h);
+        float time = Mathf.Sqrt(Mathf.Abs(-2 * throwData.h / throwData.gravity)) + Mathf.Sqrt(Mathf.Abs(2 * (displacementY - throwData.h) / throwData.gravity));
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(Mathf.Abs(-2 * throwData.gravity * throwData.h));
         Vector3 velocityXZ = displacementXZ / time;
         return velocityXZ + velocityY * -Mathf.Sign(throwData.gravity);
     }

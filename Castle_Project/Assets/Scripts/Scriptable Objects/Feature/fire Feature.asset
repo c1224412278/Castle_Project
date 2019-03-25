@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4594fde18409345489a4ba4b66cd8085, type: 3}
-  m_Name: stone Feature
+  m_Script: {fileID: 11500000, guid: ff453acc047f52f4ea881300228349dc, type: 3}
+  m_Name: fire Feature
   m_EditorClassIdentifier: 
   v3_PrefabInitPosition: {x: 2, y: -5, z: 0}
-  m_ObjStonePrefab: {fileID: 1394957674551427283, guid: 1ab4844c4fe874f40a83ff52dcf26219,
+  m_ObjBloodPrefab: {fileID: 7455829550634358060, guid: 9c068a847513eb64eb8f296d95964742,
     type: 3}
   m_fSpeed: 10

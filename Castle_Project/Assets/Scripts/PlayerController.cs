@@ -18,13 +18,12 @@ public class PlayerController : MonoBehaviour
 
         m_transform = this.transform;
         thePlayerData = new PlayerData(m_ScriptableDataObject.m_iMaxhp , m_ScriptableDataObject.m_fMaxTime , m_ScriptableDataObject.m_fUpStrSpeed);
+        UIController.Instance.Fn_Init();
     }
     private void Update()
     {
         if (del_Execute != null)
             del_Execute();
-
-        Debug.Log(thePlayerData.m_fCurStr);
     }
 }
 [SerializeField]

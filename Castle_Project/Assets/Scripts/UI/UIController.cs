@@ -16,6 +16,19 @@ public class UIController : MonoBehaviour
     {
         _Instance = this;
     }
+    public void Fn_Init()           //UI物件初始設定
+    {
+        Group_MouseLeft.alpha = 0f;
+        Group_InputTime.alpha = 0f;
+
+        Image inputingImg = UIController.Instance.Group_InputTime.transform.Find("value").GetComponent<UnityEngine.UI.Image>();
+        Image redLine = UIController.Instance.Group_InputTime.transform.Find("red line").GetComponent<UnityEngine.UI.Image>();
+        float width = inputingImg.GetComponent<RectTransform>().rect.width * 0.5f;
+        float min_width = -width;
+        float max_width = width;
+        float value = (Mathf.Abs(min_width) + max_width) * GameData.stint;
+        redLine.transform.localPosition = new Vector3(min_width + value, redLine.transform.localPosition.y, redLine.transform.localPosition.z);
+    }
     public void Fn_SetFade(CanvasGroup group , float endValue , float duration)
     {
         DOTween.Sequence().Append(group.DOFade(endValue , duration));
