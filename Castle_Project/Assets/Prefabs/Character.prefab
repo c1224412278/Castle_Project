@@ -40,7 +40,7 @@ Transform:
   m_GameObject: {fileID: 6597928604244946627}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6597928604129545641}
   m_Father: {fileID: 0}
@@ -95,6 +95,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6597928604244946625}
     m_Modifications:
+    - target: {fileID: 1512641428, guid: 2af835e8a3bd43245b1fd93245446220, type: 3}
+      propertyPath: m_Name
+      value: ToonRTS_demo_Knight
+      objectReference: {fileID: 0}
     - target: {fileID: 1512641430, guid: 2af835e8a3bd43245b1fd93245446220, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -138,10 +142,6 @@ PrefabInstance:
     - target: {fileID: 1512641430, guid: 2af835e8a3bd43245b1fd93245446220, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1512641428, guid: 2af835e8a3bd43245b1fd93245446220, type: 3}
-      propertyPath: m_Name
-      value: ToonRTS_demo_Knight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2af835e8a3bd43245b1fd93245446220, type: 3}
