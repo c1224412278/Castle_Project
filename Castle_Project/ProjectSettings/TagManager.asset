@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Across Land
+  - Enemy
   layers:
   - Default
   - TransparentFX
