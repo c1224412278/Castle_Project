@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899516f7e5c93df4a9b4c10945b9cb9d, type: 3}
+  m_Name: EnemyPrefabData
+  m_EditorClassIdentifier: 
+  prefabs:
+  - tag: Level 01
+    level: 1
+    prefab:
+    - name: Zombie
+      prefab: {fileID: 5210216495215153485, guid: 2a41edfa6c4e1f44594afe4d8b6757bc,
+        type: 3}
+      realtimeStartup: 3
+      waitTime: 3
+    - name: Monster
+      prefab: {fileID: 6043300195891181266, guid: b58514082b49ca64e9eb94118f4057be,
+        type: 3}
+      realtimeStartup: 50
+      waitTime: 5

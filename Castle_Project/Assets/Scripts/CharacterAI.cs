@@ -13,6 +13,7 @@ public class CharacterAI : MonoBehaviour, ISpawnObject, IDamageReceiver
     public Transform m_currTarget;
 
     public int m_life = 3;
+    public int m_attackDamage = 1;
     public float m_rotSpeed = 20f;
     public float m_speed = .5f;
     public float m_waitTime = 1f;
@@ -129,7 +130,12 @@ public class CharacterAI : MonoBehaviour, ISpawnObject, IDamageReceiver
                 if (m_anima.GetAnimationBool("Attack"))
                 {
                     m_anima.SetAnimationBool("Attack", false);
-                    m_currTarget.GetComponent<IDamageReceiver>().SetDamage(1, this);
+
+                    // 如果目標有接收傷害腳本，就給傷害值
+                    IDamageReceiver targetReceiver = m_currTarget.GetComponent<IDamageReceiver>();
+                    if(targetReceiver != null)
+                        m_currTarget.GetComponent<IDamageReceiver>().SetDamage(m_attackDamage, this);
+
                     m_anima.SetAnimationBool("Idle", true);
                     m_waitTime = 2f;
                 }
