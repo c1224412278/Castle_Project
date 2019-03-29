@@ -6,8 +6,9 @@ using UnityEngine;
 public class Feature_Stone : FeatureManager
 {
     public GameObject m_ObjStonePrefab;
+    public int m_iHurtValue;                  //傷害量
     public float m_fSpeed;
-
+    
     private GameObject prefab;
     public override void Fn_InitObject()
     {
@@ -45,7 +46,10 @@ public class Feature_Stone : FeatureManager
     }
     public override void Fn_ExecuteFeature()
     {
-        Debug.Log("我扔石頭囉 !!! ");
+        if (m_ObjCollisionItem.tag == "Enemy")
+        {
+            Debug.Log("我扔石頭囉 !!! ");
+        }
     }
 }
 

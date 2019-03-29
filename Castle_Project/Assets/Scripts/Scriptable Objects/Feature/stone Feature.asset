@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: stone Feature
   m_EditorClassIdentifier: 
   v3_PrefabInitPosition: {x: 2, y: -5, z: 0}
-  m_ObjStonePrefab: {fileID: 1394957674551427283, guid: 1ab4844c4fe874f40a83ff52dcf26219,
+  m_ObjStonePrefab: {fileID: 8316037625739111323, guid: 1ab4844c4fe874f40a83ff52dcf26219,
     type: 3}
   m_fSpeed: 10

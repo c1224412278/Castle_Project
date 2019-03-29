@@ -16,32 +16,47 @@ public class PlayerController : MonoBehaviour
         if (m_ScriptableDataObject == null)
             return;
 
+        if (!GameData.m_IsPlayingGame)
+            GameData.m_IsPlayingGame = true;
+
         m_transform = this.transform;
         thePlayerData = new PlayerData(m_ScriptableDataObject.m_iMaxhp , m_ScriptableDataObject.m_fMaxTime , m_ScriptableDataObject.m_fUpStrSpeed);
-        UIController.Instance.Fn_Init();
+        UIController.Instance.Fn_SetGameTime(m_ScriptableDataObject.m_fMaxTime);            //設定遊戲關卡遊玩時間
+        StartCoroutine(Fn_SetUiBlood());
     }
     private void Update()
     {
-        if (del_Execute != null)
+        if (del_Execute != null && GameData.m_IsPlayingGame)
             del_Execute();
+    }
+    private IEnumerator Fn_SetUiBlood()
+    {
+        while (UIController.Instance.Img_HpSprite.fillAmount > 0f)
+        {
+            float value = Mathf.InverseLerp(0 , thePlayerData.m_iMaxHp , thePlayerData.m_iCurHp);
+            UIController.Instance.Fn_UpdateAmount(UIController.Instance.Img_HpSprite , value , 2.5f);
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
 [SerializeField]
 public class PlayerData
 {
-    public int m_iHp;
+    public int m_iMaxHp;
+    public int m_iCurHp;
     public float m_fGameTime;
     public float m_fCurStr { get; set; }
     public float m_fMaxStr { get; set; }
     public float m_fUpStrSpeed;
     public Tween tween_valueController;
 
-    public PlayerData(int m_iHp , float m_GameTime , float m_fUpStrSpeed)
+    public PlayerData(int m_iMaxHp, float m_GameTime , float m_fUpStrSpeed)
     {
         m_fCurStr = 0f;
         m_fMaxStr = 1f;
 
-        this.m_iHp = m_iHp;
+        this.m_iMaxHp = m_iMaxHp;
+        this.m_iCurHp = m_iMaxHp;
         this.m_fGameTime = m_GameTime;
         this.m_fUpStrSpeed = m_fUpStrSpeed;
     }

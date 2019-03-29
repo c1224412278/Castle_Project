@@ -15,4 +15,5 @@ MonoBehaviour:
   v3_PrefabInitPosition: {x: 2, y: -5, z: 0}
   m_ObjBloodPrefab: {fileID: 2174289487434378476, guid: 9e779655c3b11f3469c04315e7c0a8b2,
     type: 3}
+  m_iHurtValue: 0
   m_fSpeed: 10

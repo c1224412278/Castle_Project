@@ -23,21 +23,42 @@ public class GameSystem : MonoBehaviour
         tmpFeature = featureController;
         Coroutine c = StartCoroutine(Fn_ExecuteSlerpMove(m_object , speed));
     }
-    public void Fn_InputReadyShoot()            //點擊準備射擊
+    //開始射擊，點擊滑鼠左鍵時
+    public void Fn_InputReadyShoot()
     {
         if (Input.GetKeyDown(keyCode_shoot))
         {
-            UIController.Instance.Fn_SetFade(UIController.Instance.Group_MouseLeft, 0f, 0.25f);
-            UIController.Instance.Fn_SetFade(UIController.Instance.Group_InputTime, 1f, 0.25f);
+            UIController.Instance.Fn_SetGroupFade(UIController.Instance.Group_MouseLeft, 0f, 0.25f);        //控制 UI物件的alpha (點擊滑鼠左鍵提示)
+            UIController.Instance.Fn_SetGroupFade(UIController.Instance.Group_InputTime, 1f, 0.25f);        //控制 UI物件的alpha (當前力道提示)
 
-            UnityEngine.UI.Image inputingImg = UIController.Instance.Group_InputTime.transform.Find("value").GetComponent<UnityEngine.UI.Image>();
-            UIController.Instance.Fn_UpdateAmount(inputingImg , PlayerController.thePlayerData.m_fUpStrSpeed);
+            UnityEngine.UI.Image inputingImg = UIController.Instance.Group_InputTime.transform.Find("value").GetComponent<UnityEngine.UI.Image>();      //抓取(力道提示)Image
+            UIController.Instance.Fn_AutoAddImgAmount(inputingImg , PlayerController.thePlayerData.m_fUpStrSpeed);                                          //設定(力道提示)Image Amount
 
-            PlayerController.thePlayerData.Fn_SetValueTween(true);
+            PlayerController.thePlayerData.Fn_SetValueTween(true);              //開始計算 - 射擊力道
             PlayerController.del_Execute -= Fn_InputReadyShoot;
+            PlayerController.del_Execute += Fn_ShootKeying;
             PlayerController.del_Execute += Fn_ShootKeyUp;
         }
     }
+    //射擊中，滑鼠點擊不放
+    public void Fn_ShootKeying()                        
+    {
+        if (Input.GetKey(keyCode_shoot))
+        {
+            if (PlayerController.thePlayerData.m_fCurStr >= GameData.stint)          //當施放的力道確定一定可以到對岸時
+            {
+                if (UIController.Instance.Img_ShootAnchor.color.a <= 0f)            //當力道累積到可以射到對岸時
+                {
+                    Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(SceneObject.Instance.m_ObjLand.transform.position).z));
+                    UIController.Instance.Fn_SetImageFade(UIController.Instance.Img_ShootAnchor, 1f, 0.25f);      //顯示瞄準點
+                    UIController.Instance.Fn_UpdateImageToMousePosition(UIController.Instance.Img_ShootAnchor, SceneObject.Instance.m_ObjLand.transform);
+
+                    PlayerController.del_Execute -= Fn_ShootKeying;
+                }
+            }
+        }
+    }
+    //射擊完畢，放開滑鼠時
     public void Fn_ShootKeyUp()
     {
         if (Input.GetKeyUp(keyCode_shoot))
@@ -47,10 +68,15 @@ public class GameSystem : MonoBehaviour
                 tmpFeature.Fn_GetThrow();               //獲得 - 物體拋擲方法
             }
 
-            UIController.Instance.Fn_SetFade(UIController.Instance.Group_InputTime, 0f, 0.25f);
+            UIController.Instance.Fn_SetImageFade(UIController.Instance.Img_ShootAnchor, 0f, 0.25f);        //隱藏瞄準點
+            UIController.Instance.Fn_SetGroupFade(UIController.Instance.Group_InputTime, 0f, 0.25f);        //控制 UI物件的alpha
 
             PlayerController.thePlayerData.Fn_SetValueTween(false);
+
+            PlayerController.del_Execute -= Fn_ShootKeying;
             PlayerController.del_Execute -= Fn_ShootKeyUp;
+
+            GameData.m_IsCompletedThrow = false;        //射擊結束
         }
     }
     private IEnumerator Fn_ExecuteSlerpMove(GameObject m_object, float speed)
@@ -64,9 +90,11 @@ public class GameSystem : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        UIController.Instance.Fn_SetFade(UIController.Instance.Group_MouseLeft , 1f , 0.25f);
+        UIController.Instance.Fn_SetGroupFade(UIController.Instance.Group_MouseLeft , 1f , 0.25f);
         PlayerController.del_Execute += Fn_InputReadyShoot;
     }
+
+    //拋無線的計算公式
     public void Lauch(GameData.ThrowData throwData , Rigidbody rigidbody , Vector3 target)
     {
         Physics.gravity = Vector3.up * throwData.gravity;
@@ -82,4 +110,5 @@ public class GameSystem : MonoBehaviour
         Vector3 velocityXZ = displacementXZ / time;
         return velocityXZ + velocityY * -Mathf.Sign(throwData.gravity);
     }
+    //----------------
 }

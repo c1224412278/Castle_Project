@@ -6,6 +6,7 @@ using UnityEngine;
 public class Feature_Blood : FeatureManager
 {
     public GameObject m_ObjBloodPrefab;
+    public int m_iHurtValue;                  //傷害量
     public float m_fSpeed;
 
     private GameObject prefab;
@@ -45,7 +46,13 @@ public class Feature_Blood : FeatureManager
     }
     public override void Fn_ExecuteFeature()
     {
-        Debug.Log("我在補血囉 !!! ");
+        if (m_ObjCollisionItem == SceneObject.Instance.m_ObjCastle)             //當碰到的物件等於城堡時
+        {
+            PlayerController.thePlayerData.m_iCurHp += m_iHurtValue;
+            PlayerController.thePlayerData.m_iCurHp = Mathf.Min(PlayerController.thePlayerData.m_iCurHp , PlayerController.thePlayerData.m_iMaxHp);
+
+            Debug.Log("add hp. currect hp : " + PlayerController.thePlayerData.m_iCurHp);
+        }
     }
 }
 

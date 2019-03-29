@@ -13,9 +13,14 @@ public class FeatureButton : MonoBehaviour
     }
     public void Fn_Get_CdTime()
     {
-        button.interactable = false;
-        feature.Fn_InitObject();
-        StartCoroutine(Fn_Calculate(m_fCDTime));
+        if (GameData.m_IsPlayingGame && !GameData.m_IsCompletedThrow)
+        {
+            button.interactable = false;
+            feature.Fn_InitObject();
+            StartCoroutine(Fn_Calculate(m_fCDTime));
+
+            GameData.m_IsCompletedThrow = true;                 //開始射擊
+        }
     }
     private IEnumerator Fn_Calculate(float executeTime)
     {

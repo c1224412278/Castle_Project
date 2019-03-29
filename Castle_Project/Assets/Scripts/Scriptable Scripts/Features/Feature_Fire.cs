@@ -6,6 +6,7 @@ using UnityEngine;
 public class Feature_Fire : FeatureManager
 {
     public GameObject m_ObjBloodPrefab;
+    public int m_iHurtValue;                  //傷害量
     public float m_fSpeed;
 
     private GameObject prefab;

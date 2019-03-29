@@ -10,7 +10,7 @@ public class SceneObject : MonoBehaviour
     #endregion
 
     public GameObject m_ObjLand;
-
+    public GameObject m_ObjCastle;
     private void Awake()
     {
         _Instance = this;
